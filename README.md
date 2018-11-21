@@ -28,11 +28,11 @@ To install perform the below steps,
 
 3. make DB direcotry structure in project folder,
     cd pybook directory
-    mkdir -p ./data/db
+    mkdir -p ./db
 
 4. Running MongoDB,
     start Daemon specifying DB path location, open a shell and type >
-    mongod --dbpath ./data/db
+    mongod --dbpath ./db
 
 5. Start MongoDB command line,
     open another shell and type > mongo
