@@ -30,12 +30,20 @@ To install perform the below steps,
     cd pybook directory
     mkdir -p ./db
 
-4. Running MongoDB,
+4. Running MongoDB in background, use ps -eaf | grep mongo (this gets process id to kill)
     start Daemon specifying DB path location, open a shell and type >
-    mongod --dbpath ./db
+    mongod --dbpath ./db &
 
 5. Start MongoDB command line,
     open another shell and type > mongo
+
+6. Base commands to add some data to DB for initial setup,
+
+    - Create DB > use pybook_test
+    - Create collection > db.createCollection("users")
+    - See the collection > show collections
+    - Add a user to the users collection > db.users.insert({ user_name: "joe bloggs", email: "joe.bloggs@makers.com", user_message: "Hello World!"})
+    - Show added user > db.users.find()
 
 ----------------------------------------------------------------------------------------
 Setting up Virtual enviroment
