@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Message Board!</title>
+    </head>
+    <body>
+        <h1>Players!</h1>
+
+
+{{data}}
+{% for user in data.object_list %}
+{{ user.user_name }}
+{{ user.email }}
+{{ user.user_message }}
+{% endfor %}
+
+    </body>
+</html>

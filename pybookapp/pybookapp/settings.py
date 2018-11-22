@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'pybookapp.wsgi.application'
 DATABASES = {
        'default': {
            'ENGINE': 'djongo',
-           'NAME': 'pybook_test',
+           'NAME': 'pybook_test1',
        }
    }
 
