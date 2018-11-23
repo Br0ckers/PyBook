@@ -1,7 +1,7 @@
 /db/*
 /env/*
-/pybookapp/pybookapp/__pycache__/*
-/pybookapp/msg_board/__pycache__/*
+__pycache__/
+migrations/
 .vscode/settings.json
 Pipfile.lock
 Pipfile
