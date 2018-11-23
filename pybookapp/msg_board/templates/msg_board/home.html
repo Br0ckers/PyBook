@@ -1,0 +1,15 @@
+{% extends "msg_board/base.html" %}
+{% block content %}
+    {% for message in messages %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ message.user_name }}</a>
+              <small class="text-muted">{{ message.date_posted }}</small>
+            </div>
+            <h2><a class="article-title" href="#">{{ message.title }}</a></h2>
+            <p class="article-content">{{ message.user_message }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
