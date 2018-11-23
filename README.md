@@ -123,6 +123,10 @@ Sequence of Changes to the Django-Djongo (MongoDB Wrapper for Django)
        }
    }
 ```
+> At this stage from the pybookapp folder run
+
+```./migrate.py makemigrations``` and ```./manage.py migrate```
+
 
 3. In the urls.py of the pybookapp update the following - see the second line to include the *msg_board.urls*
 ```
