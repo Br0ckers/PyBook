@@ -2,3 +2,6 @@
 /env/*
 /pybookapp/pybookapp/__pycache__/*
 /pybookapp/msg_board/__pycache__/*
+.vscode/settings.json
+Pipfile.lock
+Pipfile
