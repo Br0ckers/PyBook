@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import ModelForm
 from django.views.generic import TemplateView
-from msg_board.models import Player
+from msg_board.models import Player,Message
 from pymongo import MongoClient
 import urllib.parse
 
@@ -12,7 +12,13 @@ class HomePageView(TemplateView):
 class PlayerForm(ModelForm):
     class Meta:
         model = Player
-        fields = ['user_name', 'email', 'user_message']
+        fields = ['user_name', 'email', 'password', 'last_login', 'last_ipaddress','message_list']
+
+
+class MessageForm(ModelForm):
+    class Meta:
+        model = Message
+        fields = ['text', 'date', 'like_count']
 
 class UserListView(TemplateView):
     def get(self, request, **kwargs):
@@ -27,8 +33,6 @@ class UserListProperView(TemplateView):
         print("Fetching users via Djongo")
         player = Player.objects.all()
         print(player)
-        print(len(player))
-        print(dir(player))
         data = {}
         data['object_list'] = player
         return render(request, 'player.html', {"data": data})
@@ -38,9 +42,7 @@ class UserListProperView1(TemplateView):
     def get(self, request, **kwargs):
         print("Fetching users using PyMongo")
         client = MongoClient(port=27017)
-        print(client)
         db = client.pybook_test1
-        print(db)
         result = db.dummyplayer.find()
         print(result)
         data = {}
