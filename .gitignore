@@ -1,3 +1,4 @@
 /db/*
 /env/*
 /pybookapp/pybookapp/__pycache__/*
+/pybookapp/msg_board/__pycache__/*
