@@ -1,2 +1,3 @@
 /db/*
 /env/*
+/pybookapp/pybookapp/__pycache__/*
