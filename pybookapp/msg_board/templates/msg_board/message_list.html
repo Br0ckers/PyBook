@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2><a href="{% url 'msg_board:message_list' %}">Message Board</a></h2>
+
+<ul>
+    {% for message in object_list %}
+    <li>{{ message.text }} {{ message.like_count }} ({{ message.date }} )
+    <a href="{% url 'msg_board:message_update' message.id %}">edit</a>
+    <a href="{% url 'msg_board:message_delete' message.id %}">delete</a>
+    </li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'msg_board:message_create' %}">New</a>
+
+{% endblock %}

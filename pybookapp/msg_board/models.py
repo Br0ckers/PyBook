@@ -1,12 +1,6 @@
 #from django.db import models
 from djongo import models
-from django import forms
 from django.utils import timezone
-
-
-
-# # Create your models here.
-
 
 class Message(models.Model):
     text = models.TextField(max_length=200)
@@ -18,6 +12,8 @@ class Message(models.Model):
     def __str__(self):
         return self.text
 
+    def increment_like(self):
+        self.like_count = self.like_count + 1
 
 class Player(models.Model):
     user_name = models.CharField(max_length=30)
