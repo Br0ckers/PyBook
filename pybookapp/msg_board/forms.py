@@ -6,7 +6,7 @@ class MessageForm(ModelForm):
         model = Message
         fields = ['text', 'date', 'like_count']
 
-class PlayerForm(ModelForm):
+class MemberForm(ModelForm):
     class Meta:
-        model = Player
-        fields = ['user_name', 'email', 'password']
+        model = Member
+        fields = ['name', 'email', 'password']

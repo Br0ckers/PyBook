@@ -1,8 +1,7 @@
 from django.conf.urls import url, include
 from msg_board import views
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView,LogoutView
 from django.urls import reverse_lazy
-
 
 app_name = 'msg_board'
 
@@ -10,17 +9,18 @@ urlpatterns = [
 
     # old stuff
     url(r'^$', views.HomePageView.as_view(), name='home'),
-    url(r'^player', views.UserListProperView.as_view()),
+    # url(r'^member', views.memberListProperView.as_view(), name='Member'),
 
     #new stuff
-    #url(r'^user/?$', views.UserList.as_view(), name='user_list'),
-    #url(r'^user/detail/(?P<id>\d+)/$', views.UserViewDetail.as_view(), name='user_detail'),
-    url(r'^user/login/$', LoginView.as_view(template_name='registration/login.html'),name='user_login'),
-    #url(r'user/', include('django.contrib.auth.urls'),name='user_login'),
-    url(r'^user/forgot/(?P<id>\d+)/$', views.UserRemindPassword.as_view(), name='user_password_remind'),
-    url(r'^user/create/$', views.UserCreate.as_view(), name='user_create'),
-    url(r'^user/update/(?P<id>\d+)/$', views.UserUpdate.as_view(), name='user_update'),
-    url(r'^user/delete/(?P<id>\d+)/$', views.UserDelete.as_view(), name='user_delete'),
+    url(r'^member/$', views.MemberViewAll.as_view(), name='member_list'),
+    url(r'^member/detail/(?P<id>\d+)/$', views.MemberViewDetail.as_view(), name='member_detail'),
+    url(r'^member/login/$', LoginView.as_view(template_name='msg_board/registration/login.html'),name='member_login'),
+    url(r'^member/logout/$', LogoutView.as_view(), name='member_logout'),
+    url(r'^member/forgot/(?P<id>\d+)/$', views.MemberRemindPassword.as_view(), name='member_password_remind'),
+    url(r'^member/create/$', views.MemberCreate.as_view(), name='member_create'),
+    url(r'^member/update/(?P<id>\d+)/$', views.MemberUpdate.as_view(), name='member_update'),
+    url(r'^member/delete/(?P<id>\d+)/$', views.MemberDelete.as_view(), name='member_delete'),
+    url(r'^member/addfriend/(?P<id>\d+)/$', views.MemberAddFriend.as_view(), name='member_add_friend'),
 
     url(r'^message/$', views.MessageViewAll.as_view(), name='message_list'),
     url(r'^message/detail/(?P<pk>\d+)/$', views.MessageViewDetail.as_view(), name='message_detail'),

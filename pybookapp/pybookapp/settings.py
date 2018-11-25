@@ -126,5 +126,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'user_login'
+LOGIN_REDIRECT_URL = '/message'
+LOGOUT_REDIRECT_URL = '/member/login'

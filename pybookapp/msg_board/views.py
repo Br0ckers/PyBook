@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.forms import ModelForm
 from django.views.generic import TemplateView,ListView,DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from msg_board.models import Player,Message
+from msg_board.models import Member,Message
 from pymongo import MongoClient
 import urllib.parse
 
@@ -12,52 +12,59 @@ class HomePageView(TemplateView):
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 
-class UserListProperView(TemplateView):
+class MemberListProperView(TemplateView):
     def get(self, request, **kwargs):
-        print("Fetching users via Djongo")
-        player = Player.objects.all()
-        print(player)
+        print("Fetching members via Djongo")
+        members = Member.objects.all()
+        print(members)
         data = {}
-        data['object_list'] = player
-        return render(request, 'player.html', {"data": data})
+        data['object_list'] = members
+        return render(request, 'member_list.html', {"data": data})
 
-class UserListProperView1(TemplateView):
+class MemberListProperView1(TemplateView):
     def get(self, request, **kwargs):
-        print("Fetching users using PyMongo")
+        print("Fetching members using PyMongo")
         client = MongoClient(port=27017)
         db = client.pybook_test1
-        result = db.msg_board_player.find()
+        result = db.msg_board_member.find()
         print(result)
         data = {}
         data['object_list'] = result
-        return render(request, 'player.html', {"data": data})
+        return render(request, 'member.html', {"data": data})
 
 #new stuff
 
-class UserList(ListView):
-    model = Player
+class MemberViewAll(ListView):
+    model = Member
+    success_url = reverse_lazy('msg_board:member_list')
 
-class UserCreate(CreateView):
-    model = Player
-    fields = ['user_name', 'email', 'password']
-    success_url = reverse_lazy('msg_board:user_list')
+class MemberCreate(CreateView):
+    model = Member
+    fields = ['name', 'email', 'password']
+    success_url = reverse_lazy('msg_board:member_list')
 
-class UserUpdate(UpdateView):
-    model = Player
-    fields = ['user_name', 'email', 'password']
-    success_url = reverse_lazy('msg_board:user_list')
+class MemberUpdate(UpdateView):
+    model = Member
+    fields = ['name', 'email', 'password']
+    success_url = reverse_lazy('msg_board:member_list')
 
-class UserDelete(DeleteView):
-    model = Player
-    success_url = reverse_lazy('msg_board:user_list')
+class MemberDelete(DeleteView):
+    model = Member
+    success_url = reverse_lazy('msg_board:member_list')
 
-class UserViewDetail(DetailView):
-    model = Player
+class MemberViewDetail(DetailView):
+    model = Member
+    success_url = reverse_lazy('msg_board:member_list')
 
-class UserRemindPassword(UpdateView):
-    model = Player
-    fields = ['user_name', 'email', 'password']
-    success_url = reverse_lazy('msg_board:user_list')
+class MemberAddFriend(UpdateView):
+    model = Member
+    fields = ['friends']
+    success_url = reverse_lazy('msg_board:member_list')
+
+class MemberRemindPassword(UpdateView):
+    model = Member
+    fields = ['name', 'email', 'password']
+    success_url = reverse_lazy('msg_board:member_list')
 
 # Message views
 
@@ -76,13 +83,11 @@ class MessageUpdate(UpdateView):
 
 class MessageDelete(DeleteView):
     model = Message
-    print("delete called")
     success_url = reverse_lazy('msg_board:message_list')
 
 class MessageLike(UpdateView):
     model = Message
     #model.increment_like(self)
-    fields = ['text']
     success_url = reverse_lazy('msg_board:message_list')
 
 class MessageViewDetail(DetailView):
