@@ -1,2 +1,9 @@
 /db/*
 /env/*
+.env
+.DS_Store
+/migrations
+
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
