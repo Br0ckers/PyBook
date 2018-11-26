@@ -1,15 +1,12 @@
 {% extends "msg_board/base.html" %}
+{% block title %}Home{% endblock %}
+
 {% block content %}
-    {% for message in messages %}
-        <article class="media content-section">
-          <div class="media-body">
-            <div class="article-metadata">
-              <a class="mr-2" href="#">{{ message.user_name }}</a>
-              <small class="text-muted">{{ message.date_posted }}</small>
-            </div>
-            <h2><a class="article-title" href="#">{{ message.title }}</a></h2>
-            <p class="article-content">{{ message.user_message }}</p>
-          </div>
-        </article>
-    {% endfor %}
-{% endblock content %}
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+  <p><a href="{% url 'logout' %}">logout</a></p>
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">login</a>
+{% endif %}
+{% endblock %}

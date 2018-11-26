@@ -14,6 +14,9 @@ class Message(models.Model):
     def increment_like(self):
         self.like_count = self.like_count + 1
 
+    def get_absolute_url(self):
+        return reverse('message_detail', kwargs={'pk': self.pk})
+
 class Member(models.Model):
     name = models.CharField(max_length=30)
     email = models.EmailField()
@@ -26,3 +29,6 @@ class Member(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('member_detail', kwargs={'pk': self.pk})

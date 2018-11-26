@@ -11,7 +11,6 @@ urlpatterns = [
     path('home/', views.home, name='pybook-home'),
     path('about/', views.about, name='pybook-about'),
     url(r'^$', views.HomePageView.as_view(), name='home'),
-    # url(r'^member', views.memberListProperView.as_view(), name='Member'),
 
     #new stuff
     url(r'^member/$', views.MemberViewAll.as_view(), name='member_list'),

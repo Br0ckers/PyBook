@@ -86,7 +86,7 @@ class MessageViewAll(ListView):
 
 class MessageCreate(CreateView):
     model = Message
-    fields = ['text']
+    fields = ['text', 'like_count']
     success_url = reverse_lazy('msg_board:message_list')
 
 class MessageUpdate(UpdateView):
@@ -101,13 +101,11 @@ class MessageDelete(DeleteView):
 class MessageLike(UpdateView):
     model = Message
     #model.increment_like(self)
+    # update directly here
     success_url = reverse_lazy('msg_board:message_list')
 
 class MessageViewDetail(DetailView):
     model = Message
-
-
-
 
 
 messages = [
