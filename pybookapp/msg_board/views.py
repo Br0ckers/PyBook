@@ -18,13 +18,8 @@ class MemberListProperView(TemplateView):
         members = Member.objects.all()
         print(members)
         data = {}
-<<<<<<< HEAD
-        data['object_list'] = members
-        return render(request, 'member_list.html', {"data": data})
-=======
-        data["user_name"] = "Travolta"
+        data["name"] = "Travolta"
         data["email"] = "Travolta@gmail.com"
-        data["user_message"] = "Its cold in here"
         return render(request, 'msg_board/user.html', {"data": data})
 
 class UserListProperView(TemplateView):
@@ -38,8 +33,6 @@ class UserListProperView(TemplateView):
         data['object_list'] = player
         return render(request, 'msg_board/player.html', {"data": data})
 
->>>>>>> master
-
 class MemberListProperView1(TemplateView):
     def get(self, request, **kwargs):
         print("Fetching members using PyMongo")
@@ -49,8 +42,8 @@ class MemberListProperView1(TemplateView):
         print(result)
         data = {}
         data['object_list'] = result
-<<<<<<< HEAD
-        return render(request, 'member.html', {"data": data})
+        return render(request, 'msg_board/player.html', {"data": data})
+
 
 #new stuff
 
@@ -112,8 +105,10 @@ class MessageLike(UpdateView):
 
 class MessageViewDetail(DetailView):
     model = Message
-=======
-        return render(request, 'msg_board/player.html', {"data": data})
+
+
+
+
 
 messages = [
     {
@@ -138,4 +133,3 @@ def home(request):
 
 def about(request):
     return render(request, 'msg_board/about.html', {'title': 'About'})
->>>>>>> master
