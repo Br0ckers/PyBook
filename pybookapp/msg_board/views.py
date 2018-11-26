@@ -10,7 +10,7 @@ import urllib.parse
 
 class HomePageView(TemplateView):
     def get(self, request, **kwargs):
-        return render(request, 'index.html', context=None)
+        return render(request, 'msg_board/index.html', context=None)
 
 class MemberListProperView(TemplateView):
     def get(self, request, **kwargs):
@@ -18,8 +18,27 @@ class MemberListProperView(TemplateView):
         members = Member.objects.all()
         print(members)
         data = {}
+<<<<<<< HEAD
         data['object_list'] = members
         return render(request, 'member_list.html', {"data": data})
+=======
+        data["user_name"] = "Travolta"
+        data["email"] = "Travolta@gmail.com"
+        data["user_message"] = "Its cold in here"
+        return render(request, 'msg_board/user.html', {"data": data})
+
+class UserListProperView(TemplateView):
+    def get(self, request, **kwargs):
+        print("Fetching users via Djongo")
+        player = Player.objects.all()
+        print(player)
+        print(len(player))
+        print(dir(player))
+        data = {}
+        data['object_list'] = player
+        return render(request, 'msg_board/player.html', {"data": data})
+
+>>>>>>> master
 
 class MemberListProperView1(TemplateView):
     def get(self, request, **kwargs):
@@ -30,6 +49,7 @@ class MemberListProperView1(TemplateView):
         print(result)
         data = {}
         data['object_list'] = result
+<<<<<<< HEAD
         return render(request, 'member.html', {"data": data})
 
 #new stuff
@@ -92,3 +112,30 @@ class MessageLike(UpdateView):
 
 class MessageViewDetail(DetailView):
     model = Message
+=======
+        return render(request, 'msg_board/player.html', {"data": data})
+
+messages = [
+    {
+        'user_name': 'Fred Bloggs',
+        'title': 'Message One',
+        'user_message': 'Hello, I am creating a pybook app',
+        'date_posted': '22 November, 2018'
+    },
+    {
+        'user_name': 'Frank Skinner',
+        'title': 'Message Two',
+        'user_message': 'Hello, this is another message',
+        'date_posted': '23 November, 2018'
+    }
+
+]
+def home(request):
+    context = {
+        'messages': messages
+    }
+    return render(request, 'msg_board/home.html', context)
+
+def about(request):
+    return render(request, 'msg_board/about.html', {'title': 'About'})
+>>>>>>> master

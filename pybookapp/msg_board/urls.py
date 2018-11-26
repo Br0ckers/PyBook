@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 from django.conf.urls import url, include
+=======
+from django.conf.urls import url
+from django.urls import path
+>>>>>>> master
 from msg_board import views
 from django.contrib.auth.views import LoginView,LogoutView
 from django.urls import reverse_lazy
@@ -6,6 +11,7 @@ from django.urls import reverse_lazy
 app_name = 'msg_board'
 
 urlpatterns = [
+<<<<<<< HEAD
 
     # old stuff
     url(r'^$', views.HomePageView.as_view(), name='home'),
@@ -29,4 +35,11 @@ urlpatterns = [
     url(r'^message/delete/(?P<pk>\d+)/$', views.MessageDelete.as_view(), name='message_delete'),
     url(r'^message/like/(?P<pk>\d+)/$', views.MessageLike.as_view(), name='message_like'),
 
+=======
+    url(r'^$', views.HomePageView.as_view()),
+    url(r'^user', views.UserListView.as_view()),
+    url(r'^player', views.UserListProperView.as_view()),
+    path('home/', views.home, name='pybook-home'),
+    path('about/', views.about, name='pybook-about'),
+>>>>>>> master
 ]
