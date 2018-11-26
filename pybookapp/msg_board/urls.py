@@ -1,12 +1,45 @@
+<<<<<<< HEAD
+from django.conf.urls import url, include
+=======
 from django.conf.urls import url
 from django.urls import path
+>>>>>>> master
 from msg_board import views
+from django.contrib.auth.views import LoginView,LogoutView
+from django.urls import reverse_lazy
 
+app_name = 'msg_board'
 
 urlpatterns = [
+<<<<<<< HEAD
+
+    # old stuff
+    url(r'^$', views.HomePageView.as_view(), name='home'),
+    # url(r'^member', views.memberListProperView.as_view(), name='Member'),
+
+    #new stuff
+    url(r'^member/$', views.MemberViewAll.as_view(), name='member_list'),
+    url(r'^member/detail/(?P<id>\d+)/$', views.MemberViewDetail.as_view(), name='member_detail'),
+    url(r'^member/login/$', LoginView.as_view(template_name='msg_board/registration/login.html'),name='member_login'),
+    url(r'^member/logout/$', LogoutView.as_view(), name='member_logout'),
+    url(r'^member/forgot/(?P<id>\d+)/$', views.MemberRemindPassword.as_view(), name='member_password_remind'),
+    url(r'^member/create/$', views.MemberCreate.as_view(), name='member_create'),
+    url(r'^member/update/(?P<id>\d+)/$', views.MemberUpdate.as_view(), name='member_update'),
+    url(r'^member/delete/(?P<id>\d+)/$', views.MemberDelete.as_view(), name='member_delete'),
+    url(r'^member/addfriend/(?P<id>\d+)/$', views.MemberAddFriend.as_view(), name='member_add_friend'),
+
+    url(r'^message/$', views.MessageViewAll.as_view(), name='message_list'),
+    url(r'^message/detail/(?P<pk>\d+)/$', views.MessageViewDetail.as_view(), name='message_detail'),
+    url(r'^message/create/$', views.MessageCreate.as_view(), name='message_create'),
+    url(r'^message/update/(?P<pk>\d+)/$', views.MessageUpdate.as_view(), name='message_update'),
+    url(r'^message/delete/(?P<pk>\d+)/$', views.MessageDelete.as_view(), name='message_delete'),
+    url(r'^message/like/(?P<pk>\d+)/$', views.MessageLike.as_view(), name='message_like'),
+
+=======
     url(r'^$', views.HomePageView.as_view()),
     url(r'^user', views.UserListView.as_view()),
     url(r'^player', views.UserListProperView.as_view()),
     path('home/', views.home, name='pybook-home'),
     path('about/', views.about, name='pybook-about'),
+>>>>>>> master
 ]
