@@ -5,6 +5,7 @@ from django.forms import ModelForm
 from django.views.generic import TemplateView,ListView,DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from msg_board.models import Member,Message
+from msg_board.forms import MessageForm, MemberForm
 from pymongo import MongoClient
 import urllib.parse
 
@@ -83,11 +84,22 @@ class MemberRemindPassword(UpdateView):
 
 class MessageViewAll(ListView):
     model = Message
+    queryset = Message.objects.order_by('date')
+    context_object_name = 'message_list'
+
+class MemberMessageViewAll(ListView):
+    template_name = 'msg_board/message_by_user.html'
+    def get_queryset(self):
+        self.member = get_object_or_404(Member, name=self.kwargs['member'])
+        return Message.objects.filter(created_by=self.member)
 
 class MessageCreate(CreateView):
     model = Message
     fields = ['text', 'like_count']
     success_url = reverse_lazy('msg_board:message_list')
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
 
 class MessageUpdate(UpdateView):
     model = Message
@@ -100,9 +112,14 @@ class MessageDelete(DeleteView):
 
 class MessageLike(UpdateView):
     model = Message
-    #model.increment_like(self)
-    # update directly here
+    # obj = super().get_object()
+    # obj.like_count = obj.like_count + 1
+    # obj.save()
     success_url = reverse_lazy('msg_board:message_list')
+    answer  =  "It is now liked"
+    def get(self, request):
+        return HttpResponse(answer)
+
 
 class MessageViewDetail(DetailView):
     model = Message

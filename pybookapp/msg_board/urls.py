@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^member/update/(?P<id>\d+)/$', views.MemberUpdate.as_view(), name='member_update'),
     url(r'^member/delete/(?P<id>\d+)/$', views.MemberDelete.as_view(), name='member_delete'),
     url(r'^member/addfriend/(?P<id>\d+)/$', views.MemberAddFriend.as_view(), name='member_add_friend'),
+    url(r'^member/message/(?P<id>\d+)/$', views.MemberMessageViewAll.as_view(), name='member_message_list'),
 
     url(r'^message/$', views.MessageViewAll.as_view(), name='message_list'),
     url(r'^message/detail/(?P<pk>\d+)/$', views.MessageViewDetail.as_view(), name='message_detail'),
