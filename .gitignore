@@ -1,9 +1,8 @@
+
 /db/*
 /env/*
-.env
-.DS_Store
-/migrations
-
-
-# Byte-compiled / optimized / DLL files
 __pycache__/
+migrations/
+.vscode/settings.json
+Pipfile.lock
+Pipfile
