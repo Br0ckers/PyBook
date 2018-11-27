@@ -8,15 +8,16 @@ app_name = 'msg_board'
 urlpatterns = [
 
     # old stuff
-    path('/', views.home, name='msg_board-home'),
+    path('', views.home, name='msg_board-home'),
     path('about/', views.about, name='pybook-about'),
+    path('register/', views.register, name='register'),
     # url(r'^$', views.HomePageView.as_view(), name='home'),
 
     #new stuff
     url(r'^member/$', views.MemberViewAll.as_view(), name='member_list'),
     url(r'^member/detail/(?P<id>\d+)/$', views.MemberViewDetail.as_view(), name='member_detail'),
     # url(r'^member/login/$', LoginView.as_view(template_name='msg_board/registration/login.html'),name='member_login'),
-    url(r'^$', LoginView.as_view(template_name='msg_board/registration/login.html'),name='member_login'),
+    url(r'^member/login/$', LoginView.as_view(template_name='msg_board/registration/login.html'),name='member_login'),
     url(r'^member/logout/$', LogoutView.as_view(), name='member_logout'),
     url(r'^member/forgot/(?P<id>\d+)/$', views.MemberRemindPassword.as_view(), name='member_password_remind'),
     url(r'^member/create/$', views.MemberCreate.as_view(), name='member_create'),
