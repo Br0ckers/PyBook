@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h2><a href="{% url 'msg_board:message_list' %}">Message Board</a> You are welcome!</h2>
+<h2><a href="{% url 'msg_board:message_list' %}">Message Board - Message Form</a> You are welcome!</h2>
 
 <form method="post">{% csrf_token %}
     {{ form.as_p }}
