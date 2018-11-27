@@ -11,7 +11,7 @@ import urllib.parse
 
 class HomePageView(TemplateView):
     def get(self, request, **kwargs):
-        return render(request, 'msg_board/index.html', context=None)
+        return render(request, 'msg_board/home.html', context=None)
 
 class MemberListProperView(TemplateView):
     def get(self, request, **kwargs):
@@ -142,26 +142,26 @@ class MessageViewDetail(DetailView):
     model = Message
 
 
-messages = [
-    {
-        'user_name': 'Fred Bloggs',
-        'title': 'Message One',
-        'user_message': 'Hello, I am creating a pybook app',
-        'date_posted': '22 November, 2018'
-    },
-    {
-        'user_name': 'Frank Skinner',
-        'title': 'Message Two',
-        'user_message': 'Hello, this is another message',
-        'date_posted': '23 November, 2018'
-    }
-
-]
+# messages = [
+#     {
+#         'user_name': 'Fred Bloggs',
+#         'title': 'Message One',
+#         'user_message': 'Hello, I am creating a pybook app',
+#         'date_posted': '22 November, 2018'
+#     },
+#     {
+#         'user_name': 'Frank Skinner',
+#         'title': 'Message Two',
+#         'user_message': 'Hello, this is another message',
+#         'date_posted': '23 November, 2018'
+#     }
+#
+# ]
 def home(request):
-    context = {
-        'messages': messages
-    }
-    return render(request, 'msg_board/home.html', context)
+    # context = {
+    #     'messages': messages
+    # }
+    return render(request, 'msg_board/home.html')
 
 def about(request):
     return render(request, 'msg_board/about.html', {'title': 'About'})
