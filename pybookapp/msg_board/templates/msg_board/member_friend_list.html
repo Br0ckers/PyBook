@@ -1,0 +1,17 @@
+{% extends "msg_board/base.html" %}
+
+{% block content %}
+
+<h2><a href="{% url 'msg_board:member_list' %}">Member List</a></h2>
+
+<ul>
+    {% for member in object_list %}
+    <br>
+    Friends for: {{member.name}} :
+    <li> {{ member.friend_list_id}}
+    </li>
+
+    {% endfor %}
+</ul>
+
+{% endblock %}

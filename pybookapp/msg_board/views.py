@@ -88,10 +88,27 @@ class MessageViewAll(ListView):
     context_object_name = 'message_list'
 
 class MemberMessageViewAll(ListView):
-    template_name = 'msg_board/message_by_user.html'
+    template_name = 'msg_board/member_message_list.html'
+
     def get_queryset(self):
-        self.member = get_object_or_404(Member, name=self.kwargs['member'])
-        return Message.objects.filter(created_by=self.member)
+        return Message.objects.filter(created_by=self.kwargs['id'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['member'] = Member.objects.filter(id=self.kwargs['id'])
+        return context
+
+class MemberFriendViewAll(ListView):
+    template_name = 'msg_board/member_friend_list.html'
+
+    def get_queryset(self):
+        res = Member.objects.filter(id=self.kwargs['id'])
+        print(res)
+        for e in res:
+            print(e.name)
+            print(e.friend_list_id)
+        print("hello")
+        return res
 
 class MessageCreate(CreateView):
     model = Message
