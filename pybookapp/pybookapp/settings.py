@@ -86,7 +86,7 @@ DATABASES = {
            'NAME': 'pybook_test1',
        }
    }
-
+   
 
 
 # Password validation

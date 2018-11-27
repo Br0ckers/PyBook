@@ -6,7 +6,9 @@ from django.views.generic import TemplateView,ListView,DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from msg_board.models import Member,Message
 from pymongo import MongoClient
-from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from msg_board.forms import UserRegisterForm
 import urllib.parse
 
 class HomePageView(TemplateView):
@@ -112,7 +114,15 @@ class MessageViewDetail(DetailView):
 
 # DB below ---------
 def register(request):
-    form = UserCreationForm()
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Account created for {username}!')
+            return redirect('msg_board-home')
+    else:
+        form = UserRegisterForm()
     return render(request, 'msg_board/registration/register.html', {'form': form})
 
 def home(request):
