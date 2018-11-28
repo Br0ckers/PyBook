@@ -126,9 +126,27 @@ class MessageCreate(CreateView):
     model = Message
     fields = ['text', 'like_count']
     success_url = reverse_lazy('msg_board:message_list')
+
     def form_valid(self, form):
         form.instance.created_by = self.request.user
+        print ('fetch ip')
+        form.instance.ip_address = get_client_ip(request)
+        print ('got ip')
         return super().form_valid(form)
+
+    def get_client_ip(self, request):
+        try:
+            print ('running ip branch')
+            x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+            if x_forwarded_for:
+                ip = x_forwarded_for.split(',')[0]
+                print ('IP is forwarded')
+            else:
+                ip = request.META.get('REMOTE_ADDR')
+                print ('IP is local')
+        except:
+            print ('NO IP Found')
+            return ip
 
 class MessageUpdate(UpdateView):
     model = Message
