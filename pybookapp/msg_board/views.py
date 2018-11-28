@@ -5,6 +5,7 @@ from django.forms import ModelForm
 from django.views.generic import TemplateView,ListView,DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from msg_board.models import Member,Message
+from msg_board.forms import MessageForm, MemberForm
 from pymongo import MongoClient
 # from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
@@ -86,11 +87,39 @@ class MemberRemindPassword(UpdateView):
 
 class MessageViewAll(ListView):
     model = Message
+    queryset = Message.objects.order_by('date')
+    context_object_name = 'message_list'
+
+class MemberMessageViewAll(ListView):
+    template_name = 'msg_board/member_message_list.html'
+
+    def get_queryset(self):
+        return Message.objects.filter(created_by=self.kwargs['id'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['member'] = Member.objects.filter(id=self.kwargs['id'])
+        return context
+
+class MemberFriendViewAll(ListView):
+    template_name = 'msg_board/member_friend_list.html'
+
+    def get_queryset(self):
+        res = Member.objects.filter(id=self.kwargs['id'])
+        print(res)
+        for e in res:
+            print(e.name)
+            print(e.friend_list_id)
+        print("hello")
+        return res
 
 class MessageCreate(CreateView):
     model = Message
     fields = ['text', 'like_count']
     success_url = reverse_lazy('msg_board:message_list')
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
 
 class MessageUpdate(UpdateView):
     model = Message
@@ -103,9 +132,14 @@ class MessageDelete(DeleteView):
 
 class MessageLike(UpdateView):
     model = Message
-    #model.increment_like(self)
-    # update directly here
+    # obj = super().get_object()
+    # obj.like_count = obj.like_count + 1
+    # obj.save()
     success_url = reverse_lazy('msg_board:message_list')
+    answer  =  "It is now liked"
+    def get(self, request):
+        return HttpResponse(answer)
+
 
 class MessageViewDetail(DetailView):
     model = Message

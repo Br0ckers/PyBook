@@ -3,6 +3,7 @@
 {% block content %}
 
 <h2><a href="{% url 'msg_board:message_list' %}">Message Board</a></h2>
+<h4><a href="{% url 'msg_board:member_list' %}">View Members</a></h4>
 
 <ul>
     {% for message in object_list %}

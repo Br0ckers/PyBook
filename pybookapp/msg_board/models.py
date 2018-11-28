@@ -23,7 +23,7 @@ class Member(models.Model):
     password = models.CharField(max_length=15, default='password')
     last_login = models.DateField(null=True, default = '2018-01-01')
     last_ipaddress = models.CharField(max_length=20, null=True)
-    message_list = models.ArrayReferenceField(to=Message, null=True, blank=True, on_delete = models.CASCADE)
+    #message_list = models.ArrayReferenceField(to=Message, null=True, blank=True, on_delete = models.CASCADE)
     friend_list = models.ArrayReferenceField(to='self', null=True, blank=True, on_delete = models.CASCADE)
     objects = models.DjongoManager()
 
@@ -32,3 +32,20 @@ class Member(models.Model):
 
     def get_absolute_url(self):
         return reverse('member_detail', kwargs={'pk': self.pk})
+
+
+class Message(models.Model):
+    text = models.TextField(max_length=200)
+    date = models.DateField(null=True, default = timezone.now())
+    like_count = models.IntegerField(default=0)
+    created_by = models.ForeignKey(Member, on_delete=models.CASCADE)
+    objects = models.DjongoManager()
+
+    def __str__(self):
+        return self.text
+
+    class Meta:
+        ordering = ['date']
+
+    def get_absolute_url(self):
+        return reverse('message_detail', kwargs={'pk': self.pk})
