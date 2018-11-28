@@ -17,6 +17,7 @@ class Member(models.Model):
         return reverse('member_detail', kwargs={'pk': self.pk})
 
 class Message(models.Model):
+    posted_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='%(class)s_username', )
     text = models.TextField(max_length=200)
     date = models.DateField(null=True, default = timezone.now)
     like_count = models.IntegerField(default=0)
