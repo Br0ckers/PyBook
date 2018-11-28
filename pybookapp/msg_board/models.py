@@ -2,6 +2,21 @@
 from djongo import models
 from django.utils import timezone
 
+class Message(models.Model):
+    text = models.TextField(max_length=200)
+    date = models.DateField(null=True, default = timezone.now)
+    like_count = models.IntegerField(default=0)
+    objects = models.DjongoManager()
+
+    def __str__(self):
+        return self.text
+
+    def increment_like(self):
+        self.like_count = self.like_count + 1
+
+    def get_absolute_url(self):
+        return reverse('message_detail', kwargs={'pk': self.pk})
+
 class Member(models.Model):
     name = models.CharField(max_length=30)
     email = models.EmailField()
