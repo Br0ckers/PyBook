@@ -22,16 +22,16 @@ class MemberListProperView(TemplateView):
         data["email"] = "Travolta@gmail.com"
         return render(request, 'msg_board/user.html', {"data": data})
 
-class UserListProperView(TemplateView):
-    def get(self, request, **kwargs):
-        print("Fetching users via Djongo")
-        player = Player.objects.all()
-        print(player)
-        print(len(player))
-        print(dir(player))
-        data = {}
-        data['object_list'] = player
-        return render(request, 'msg_board/player.html', {"data": data})
+# class UserListProperView(TemplateView):
+#     def get(self, request, **kwargs):
+#         print("Fetching users via Djongo")
+#         player = Player.objects.all()
+#         print(player)
+#         print(len(player))
+#         print(dir(player))
+#         data = {}
+#         data['object_list'] = player
+#         return render(request, 'msg_board/player.html', {"data": data})
 
 class MemberListProperView1(TemplateView):
     def get(self, request, **kwargs):
@@ -49,6 +49,15 @@ class MemberListProperView1(TemplateView):
 
 class MemberViewAll(ListView):
     model = Member
+
+    # def get_queryset(self):
+    #     return "hello"
+    
+    # def get_context_data(self, **kwargs):
+    #     context = super(newChartView, self).get_context_data(**kwargs)
+    #     context['count'] = YourModel.objects.all()
+    #     return context
+
     success_url = reverse_lazy('msg_board:member_list')
 
 class MemberCreate(CreateView):
