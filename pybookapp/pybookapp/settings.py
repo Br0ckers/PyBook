@@ -84,6 +84,8 @@ DATABASES = {
        'default': {
            'ENGINE': 'djongo',
            'NAME': 'pybook_test1',
+           'HOST': '192.168.99.100',
+           'PORT': 27017
        }
    }
 
