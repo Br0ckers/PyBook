@@ -8,7 +8,7 @@ app_name = 'msg_board'
 urlpatterns = [
 
     # old stuff
-    path('', views.home, name='msg_board-home'),
+    path('', views.home, name='msg_board_home'),
     path('about/', views.about, name='pybook-about'),
     path('register/', views.register, name='register'),
     # url(r'^$', views.HomePageView.as_view(), name='home'),
@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^member/create/$', views.MemberCreate.as_view(), name='member_create'),
     url(r'^member/update/(?P<id>\d+)/$', views.MemberUpdate.as_view(), name='member_update'),
     url(r'^member/delete/(?P<id>\d+)/$', views.MemberDelete.as_view(), name='member_delete'),
-    url(r'^member/addfriend/(?P<id>\d+)/$', views.MemberAddFriend.as_view(), name='member_add_friend'),
+    url(r'^member/addfriend/(?P<pk>\d+)/$', views.MemberAddFriend, name='member_add_friend'),
     url(r'^member/message/(?P<id>\d+)/$', views.MemberMessageViewAll.as_view(), name='member_message_list'),
     url(r'^member/friend/(?P<id>\d+)/$', views.MemberFriendViewAll.as_view(), name='member_friend_list'),
 
