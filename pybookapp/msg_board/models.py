@@ -36,7 +36,7 @@ class Member(models.Model):
 
 class Message(models.Model):
     text = models.TextField(max_length=200)
-    date = models.DateField(null=True, default = timezone.now())
+    date = models.DateField(null=True, default = timezone.now)
     like_count = models.IntegerField(default=0)
     created_by = models.ForeignKey(Member, on_delete=models.CASCADE)
     objects = models.DjongoManager()

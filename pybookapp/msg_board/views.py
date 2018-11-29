@@ -118,6 +118,7 @@ class MessageCreate(CreateView):
     fields = ['text', 'like_count']
     success_url = reverse_lazy('msg_board:message_list')
     def form_valid(self, form):
+        print(self.request)
         form.instance.created_by = self.request.user
         return super().form_valid(form)
 
@@ -154,7 +155,7 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
-            return redirect('msg_board-home')
+            return redirect('msg_board:member_login')
     else:
         form = UserRegisterForm()
     return render(request, 'msg_board/registration/register.html', {'form': form})
