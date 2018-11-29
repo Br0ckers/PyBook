@@ -2,16 +2,21 @@
 
 {% block content %}
 
-<h2><a href="{% url 'msg_board:member_list' %}">Member List</a></h2>
+<h3><a href="{% url 'msg_board:member_list' %}">Member List</a></h3>
 
-<ul>
     {% for member in object_list %}
-    <br>
-    Friends are :
-    <li> {{ member.username}}
-    </li>
+
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">Friends for: {{member.name}} :</a>
+              <!-- <small class="text-muted">{{ message.date }}</small> -->
+            </div>
+            <!-- <h6>Likes: <a class="article-title" href="#">{{ message.like_count }}</a></h6> -->
+            <p class="article-content">{{ member.friend_list_id}}</p>
+          </div>
+        </article>
 
     {% endfor %}
-</ul>
 
 {% endblock %}

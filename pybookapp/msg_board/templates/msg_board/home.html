@@ -2,8 +2,10 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+<h1>Welcome to PyBook</h1><br>
+<h4>This application is written in Django Python and MongoDB</h4><br>
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
+  <h3>Hi {{ user.username }}!</h3>
   <p><a href="{% url 'msg_board:member_logout' %}">logout</a></p>
 {% else %}
   <p>You are not logged in</p>

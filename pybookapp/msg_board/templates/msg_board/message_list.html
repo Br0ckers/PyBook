@@ -1,19 +1,21 @@
 {% extends "msg_board/base.html" %}
-
 {% block content %}
 
 <h2><a href="{% url 'msg_board:message_list' %}">Message Board</a></h2>
 <h4><a href="{% url 'msg_board:member_list' %}">View Members</a></h4>
 
-<ul>
     {% for message in object_list %}
-    <li>{{ message.text }} {{ message.like_count }} ({{ message.date }} )
-    <a href="{% url 'msg_board:message_update' message.id %}">edit</a>
-    <a href="{% url 'msg_board:message_delete' message.id %}">delete</a>
-    </li>
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ message.created_by }}</a>
+              <small class="text-muted">{{ message.date }}</small>
+            </div>
+            <h6>Likes: <a class="article-title" href="#">{{ message.like_count }}</a></h6>
+            <p class="article-content">{{ message.text }}</p>
+            <a href="{% url 'msg_board:message_update' message.id %}">edit</a>
+            <a href="{% url 'msg_board:message_delete' message.id %}">delete</a>
+          </div>
+        </article>
     {% endfor %}
-</ul>
-
-<a href="{% url 'msg_board:message_create' %}">New</a>
-
-{% endblock %}
+{% endblock content %}

@@ -4,15 +4,19 @@
 
 <h2><a href="{% url 'msg_board:member_list' %}"> Member List</a></h2>
 
-<ul>
-    {% for member in object_list %}
-    <li>{{ member.nickname}} {{ member.last_ipaddress }}
-    <a href="{% url 'msg_board:member_add_friend' member.id %}">add friend</a>
-    <a href="{% url 'msg_board:member_message_list' member.id %}">view messages by this user</a>
-    <a href="{% url 'msg_board:member_friend_list' member.pk %}">view friends </a>
-
-    </li>
-    {% endfor %}
-</ul>
-
+  {% for member in object_list %}
+      <article class="media content-section">
+        <div class="media-body">
+          <div class="article-metadata">
+            <a class="mr-2" href="#">{{ member.name }}</a>
+            <small class="text-muted">{{ member.email }}</small>
+          </div>
+          <!-- <h6>Likes: <a class="article-title" href="#">{{ message.like_count }}</a></h6> -->
+          <p class="article-content">Friends: {{ member.friends }}</p>
+          <a href="{% url 'msg_board:member_add_friend' member.id %}">Add friend</a><br>
+          <a href="{% url 'msg_board:member_message_list' member.id %}">View messages by this user</a><br>
+          <a href="{% url 'msg_board:member_friend_list' member.id %}">View friends </a>
+        </div>
+      </article>
+  {% endfor %}
 {% endblock %}

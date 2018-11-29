@@ -8,6 +8,14 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
+
+{% if user.is_authenticated %}
+  <h3>Hi {{ user.username }}!</h3>
+  <p><a href="{% url 'msg_board:member_logout' %}">logout</a></p>
+{% else %}
+
+
+
   <div class="content-section">
       <form method="post">
           {% csrf_token %}
@@ -25,4 +33,5 @@
           </small>
       </div>
   </div>
+  {% endif %}
 {% endblock %}
