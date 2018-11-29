@@ -6,10 +6,10 @@
 
 <ul>
     {% for member in object_list %}
-    <li>{{ member.nickname}} {{ member.last_ipaddress }} ({{ member.friend_list_id }} )
+    <li>{{ member.nickname}} {{ member.last_ipaddress }}
     <a href="{% url 'msg_board:member_add_friend' member.id %}">add friend</a>
     <a href="{% url 'msg_board:member_message_list' member.id %}">view messages by this user</a>
-    <a href="{% url 'msg_board:member_friend_list' member.id %}">view friends </a>
+    <a href="{% url 'msg_board:member_friend_list' member.pk %}">view friends </a>
 
     </li>
     {% endfor %}

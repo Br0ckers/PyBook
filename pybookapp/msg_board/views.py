@@ -10,6 +10,7 @@ from pymongo import MongoClient
 # from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from msg_board.forms import UserRegisterForm
+from django.contrib.auth.models import User
 import urllib.parse
 
 class HomePageView(TemplateView):
@@ -65,13 +66,13 @@ class MemberViewAll(ListView):
     success_url = reverse_lazy('msg_board:member_list')
 
 class MemberCreate(CreateView):
-    model = Member
-    fields = ['name', 'email', 'password']
+    model = User
+    fields = ['username', 'email', 'password']
     success_url = reverse_lazy('msg_board:member_list')
 
 class MemberUpdate(UpdateView):
-    model = Member
-    fields = ['name', 'email', 'password']
+    model = User
+    fields = ['username', 'email', 'password']
     success_url = reverse_lazy('msg_board:member_list')
 
 class MemberDelete(DeleteView):
@@ -82,14 +83,20 @@ class MemberViewDetail(DetailView):
     model = Member
     success_url = reverse_lazy('msg_board:member_list')
 
-class MemberAddFriend(UpdateView):
-    model = Member
-    fields = ['friends']
-    success_url = reverse_lazy('msg_board:member_list')
+def MemberAddFriend(request,pk,template='msgboard/member_list.html'):
+     friend = get_object_or_404(Member,pk=pk)
+     print(friend)
+     print(request.user)
+     user = get_object_or_404(User,username=request.user)
+     parent_member = get_object_or_404(Member,user_id=user.id)
+     parent_member.friend_list_id.add(friend.id)
+     parent_member.save()
+     return redirect('msg_board:member_list')
+    
 
 class MemberRemindPassword(UpdateView):
-    model = Member
-    fields = ['name', 'email', 'password']
+    model = User
+    fields = ['username', 'email', 'password']
     success_url = reverse_lazy('msg_board:member_list')
 
 # Message views
@@ -114,13 +121,17 @@ class MemberFriendViewAll(ListView):
     template_name = 'msg_board/member_friend_list.html'
 
     def get_queryset(self):
-        res = Member.objects.filter(id=self.kwargs['id'])
+        #res = Member.objects.filter(id=self.kwargs['id'])
+        res = Member.objects.get(id=self.kwargs['id'])
+        user_arr = []
         print(res)
-        for e in res:
-            print(e.name)
-            print(e.friend_list_id)
-        print("hello")
-        return res
+        for e in res.friend_list_id:
+          #  print(e.nickname)
+          #  print(e.friend_list_id)
+          #  newusr_id = e.friend_list_id
+          user_arr.append(User.objects.get(pk=e))
+          print("hello")
+        return user_arr
 
 class MessageCreate(CreateView):
     model = Message
@@ -163,7 +174,8 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
-            return redirect('msg_board-home')
+            #return redirect('msg_board_home')
+            return render(request, 'msg_board/home.html')
     else:
         form = UserRegisterForm()
     return render(request, 'msg_board/registration/register.html', {'form': form})
