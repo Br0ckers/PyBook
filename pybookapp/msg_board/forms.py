@@ -10,8 +10,8 @@ class MessageForm(forms.ModelForm):
 
 class MemberForm(forms.ModelForm):
     class Meta:
-        model = Member
-        fields = ['name', 'email', 'password']
+        model = User
+        fields = ['username', 'email', 'password']
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()

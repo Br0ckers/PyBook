@@ -5,6 +5,7 @@
 <h3><a href="{% url 'msg_board:member_list' %}">Member List</a></h3>
 
     {% for member in object_list %}
+
         <article class="media content-section">
           <div class="media-body">
             <div class="article-metadata">
@@ -15,6 +16,7 @@
             <p class="article-content">{{ member.friend_list_id}}</p>
           </div>
         </article>
+
     {% endfor %}
 
 {% endblock %}

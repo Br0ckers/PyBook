@@ -3,6 +3,7 @@
 {% block content %}
 
 <h2><a href="{% url 'msg_board:member_list' %}"> Member List</a></h2>
+
   {% for member in object_list %}
       <article class="media content-section">
         <div class="media-body">
